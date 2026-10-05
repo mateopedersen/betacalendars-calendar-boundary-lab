@@ -1,0 +1,36 @@
+name: container-smoke
+on:
+  workflow_dispatch:
+permissions:
+  packages: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull the public release image
+        run: docker pull ghcr.io/mateopedersen/betacalendars-calendar-boundary-lab:1.0.0
+      - name: Check HTTP endpoints in the container
+        run: |
+          docker run -d --name boundary-lab-smoke -p 8080:8080 ghcr.io/mateopedersen/betacalendars-calendar-boundary-lab:1.0.0
+          trap 'docker rm -f boundary-lab-smoke >/dev/null 2>&1 || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8080/readyz >/dev/null; then break; fi
+            if [ "$attempt" -eq 30 ]; then docker logs boundary-lab-smoke; exit 1; fi
+            sleep 1
+          done
+          test "$(curl --fail --silent http://127.0.0.1:8080/healthz)" = ok
+          test "$(curl --fail --silent http://127.0.0.1:8080/readyz)" = ready
+          curl --fail --silent http://127.0.0.1:8080/metrics | grep -q calendar_requests_total
+          curl --fail --silent 'http://127.0.0.1:8080/v1/month/2027/2?weekStart=monday' >/tmp/month.json
+          curl --fail --silent http://127.0.0.1:8080/v1/fixtures/winter-rollover/2026 >/tmp/winter.json
+          python3 - <<'PY'
+          import json
+          month = json.load(open('/tmp/month.json'))
+          assert month['daysInMonth'] == 28 and month['naturalRows'] == 4
+          assert all(month['invariants'].values())
+          winter = json.load(open('/tmp/winter.json'))
+          assert len(winter['months']) == 4
+          assert [m['monthName'] for m in winter['months']] == ['November', 'December', 'January', 'February']
+          assert winter['months'][2]['year'] == 2027
+          print('Container endpoints and calendar fixtures passed')
+          PY
