@@ -1,0 +1,9 @@
+Calendar Boundary Lab is available at:
+  http://{{ include "boundary.fullname" . }}:{{ .Values.service.port }}
+
+Check readiness:
+  kubectl port-forward svc/{{ include "boundary.fullname" . }} 8080:{{ .Values.service.port }}
+  curl http://127.0.0.1:8080/readyz
+
+Try the month geometry API:
+  curl 'http://127.0.0.1:8080/v1/month/{{ .Values.calendar.defaultYear }}/2?weekStart={{ .Values.calendar.weekStart }}'
