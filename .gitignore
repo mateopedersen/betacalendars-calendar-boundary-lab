@@ -1,0 +1,6 @@
+/dist/
+/work/
+/outputs/
+*.tgz
+coverage.out
+.DS_Store

@@ -1,0 +1,7 @@
+.git
+.github
+docs
+outputs
+work
+charts
+**/*_test.go
