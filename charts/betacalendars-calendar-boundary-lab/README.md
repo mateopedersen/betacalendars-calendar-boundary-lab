@@ -52,7 +52,7 @@ helm install boundary-lab betacalendars/betacalendars-calendar-boundary-lab
 | Value | Default | Description |
 |---|---:|---|
 | `replicaCount` | `1` | Fixed replicas when autoscaling is disabled |
-| `image.repository` | publication-specific | Container image repository |
+| `image.repository` | `ghcr.io/mateopedersen/betacalendars-calendar-boundary-lab` | Public GHCR image repository |
 | `image.tag` | `1.0.0` | Application image tag |
 | `service.port` | `8080` | HTTP service port |
 | `calendar.defaultYear` | `2027` | Dashboard year |
