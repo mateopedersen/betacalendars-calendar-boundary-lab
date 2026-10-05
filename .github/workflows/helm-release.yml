@@ -28,16 +28,16 @@ jobs:
           HELM_REPO_URL: https://mateopedersen.github.io/betacalendars-calendar-boundary-lab
         run: |
           for attempt in $(seq 1 24); do
-            if curl --fail --silent --show-error "$HELM_REPO_URL/index.yaml" -o /tmp/index.yaml; then
+            if curl --fail --location --silent --show-error "$HELM_REPO_URL/index.yaml" -o /tmp/index.yaml && grep -q 'version: 0.1.2' /tmp/index.yaml; then
               break
             fi
             if [ "$attempt" -eq 24 ]; then
-              echo "GitHub Pages did not serve index.yaml after 2 minutes" >&2
+              echo "GitHub Pages did not serve chart 0.1.2 in index.yaml after 2 minutes" >&2
               exit 1
             fi
             sleep 5
           done
-          curl --fail --silent --show-error "$HELM_REPO_URL/artifacthub-repo.yml" -o /tmp/artifacthub-repo.yml
+          curl --fail --location --silent --show-error "$HELM_REPO_URL/artifacthub-repo.yml" -o /tmp/artifacthub-repo.yml
           grep -qx 'repositoryID: 9bc1ede2-5b3a-4a4e-a573-cc9174c63c79' /tmp/artifacthub-repo.yml
           helm repo add betacalendars "$HELM_REPO_URL"
           helm repo update
