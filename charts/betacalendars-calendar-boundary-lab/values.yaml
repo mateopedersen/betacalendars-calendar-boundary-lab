@@ -1,0 +1,57 @@
+replicaCount: 1
+image:
+  repository: ghcr.io/mateopedersen/betacalendars-calendar-boundary-lab
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 8080
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: boundary-lab.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+resources:
+  requests: {cpu: 50m, memory: 32Mi}
+  limits: {cpu: 250m, memory: 128Mi}
+podAnnotations: {}
+podLabels: {}
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  seccompProfile: {type: RuntimeDefault}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities: {drop: [ALL]}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+topologySpreadConstraints: []
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 75
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+networkPolicy:
+  enabled: false
+  ingress: []
+serviceMonitor:
+  enabled: false
+  interval: 30s
+calendar:
+  defaultYear: 2027
+  weekStart: monday
+  enableWinterFixture: true
+  responseTimezone: UTC
+serviceAccount:
+  create: true

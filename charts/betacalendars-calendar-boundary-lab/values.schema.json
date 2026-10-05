@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["replicaCount", "image", "service", "calendar"],
+  "properties": {
+    "replicaCount": {"type":"integer","minimum":1,"maximum":100},
+    "image": {"type":"object","required":["repository","tag","pullPolicy"],"properties":{"repository":{"type":"string","minLength":1},"tag":{"type":"string","minLength":1},"pullPolicy":{"type":"string","enum":["Always","IfNotPresent","Never"]}}},
+    "service": {"type":"object","properties":{"type":{"type":"string","enum":["ClusterIP","NodePort","LoadBalancer"]},"port":{"type":"integer","minimum":1,"maximum":65535}}},
+    "calendar": {"type":"object","properties":{"defaultYear":{"type":"integer","minimum":1,"maximum":9998},"weekStart":{"type":"string","enum":["monday","sunday"]},"enableWinterFixture":{"type":"boolean"},"responseTimezone":{"type":"string","enum":["UTC"]}}},
+    "ingress":{"type":"object","properties":{"enabled":{"type":"boolean"},"className":{"type":"string"},"annotations":{"type":"object"},"hosts":{"type":"array"},"tls":{"type":"array"}}},
+    "autoscaling":{"type":"object","properties":{"enabled":{"type":"boolean"},"minReplicas":{"type":"integer","minimum":1},"maxReplicas":{"type":"integer","minimum":1},"targetCPUUtilizationPercentage":{"type":"integer","minimum":1,"maximum":100}}},
+    "podDisruptionBudget":{"type":"object","properties":{"enabled":{"type":"boolean"},"minAvailable":{"oneOf":[{"type":"integer","minimum":0},{"type":"string","pattern":"^[0-9]+%$"}]}}},
+    "networkPolicy":{"type":"object","properties":{"enabled":{"type":"boolean"},"ingress":{"type":"array"}}},
+    "serviceMonitor":{"type":"object","properties":{"enabled":{"type":"boolean"},"interval":{"type":"string"}}}
+  }
+}
