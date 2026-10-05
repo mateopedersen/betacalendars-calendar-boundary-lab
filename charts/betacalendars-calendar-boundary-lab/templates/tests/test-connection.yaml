@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "boundary.fullname" . }}-test-connection"
+  labels: {{- include "boundary.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  restartPolicy: Never
+  containers:
+    - name: wget
+      image: busybox:1.36.1
+      command: ["wget"]
+      args: ["-qO-", "http://{{ include "boundary.fullname" . }}:{{ .Values.service.port }}/readyz"]
