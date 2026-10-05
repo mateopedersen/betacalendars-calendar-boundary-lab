@@ -23,3 +23,22 @@ jobs:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
           charts_dir: charts
+      - name: Verify the public Helm repository
+        env:
+          HELM_REPO_URL: https://mateopedersen.github.io/betacalendars-calendar-boundary-lab
+        run: |
+          for attempt in $(seq 1 24); do
+            if curl --fail --silent --show-error "$HELM_REPO_URL/index.yaml" -o /tmp/index.yaml; then
+              break
+            fi
+            if [ "$attempt" -eq 24 ]; then
+              echo "GitHub Pages did not serve index.yaml after 2 minutes" >&2
+              exit 1
+            fi
+            sleep 5
+          done
+          helm repo add betacalendars "$HELM_REPO_URL"
+          helm repo update
+          helm search repo betacalendars/betacalendars-calendar-boundary-lab
+          helm pull betacalendars/betacalendars-calendar-boundary-lab --version 0.1.0
+          helm install --dry-run boundary-lab betacalendars/betacalendars-calendar-boundary-lab --version 0.1.0
