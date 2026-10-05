@@ -1,0 +1,26 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache: true
+      - run: go vet ./...
+      - run: go test ./...
+  helm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: azure/setup-helm@v5
+      - run: helm lint charts/betacalendars-calendar-boundary-lab
+      - run: helm template boundary-lab charts/betacalendars-calendar-boundary-lab > /tmp/rendered.yaml
+      - run: helm template boundary-lab charts/betacalendars-calendar-boundary-lab --set ingress.enabled=true --set autoscaling.enabled=true --set networkPolicy.enabled=true > /tmp/hardened.yaml
