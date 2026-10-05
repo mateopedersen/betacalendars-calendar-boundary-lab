@@ -40,5 +40,5 @@ jobs:
           helm repo add betacalendars "$HELM_REPO_URL"
           helm repo update
           helm search repo betacalendars/betacalendars-calendar-boundary-lab
-          helm pull betacalendars/betacalendars-calendar-boundary-lab --version 0.1.0
-          helm install --dry-run boundary-lab betacalendars/betacalendars-calendar-boundary-lab --version 0.1.0
+          helm pull betacalendars/betacalendars-calendar-boundary-lab --version 0.1.1
+          helm install --dry-run boundary-lab betacalendars/betacalendars-calendar-boundary-lab --version 0.1.1
