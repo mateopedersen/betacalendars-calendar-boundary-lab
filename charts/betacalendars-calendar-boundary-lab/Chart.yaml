@@ -2,7 +2,7 @@ apiVersion: v2
 name: betacalendars-calendar-boundary-lab
 description: Helm chart for a deterministic Gregorian calendar boundary and month-grid conformance service.
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: "1.0.0"
 home: https://www.betacalendars.com/
 sources:
@@ -35,14 +35,10 @@ annotations:
     - title: API and invariant results
       url: https://raw.githubusercontent.com/mateopedersen/betacalendars-calendar-boundary-lab/main/docs/screenshots/api-invariant-results.png
   artifacthub.io/changes: |
+    - kind: changed
+      description: Document the published GHCR image as the image.repository default.
     - kind: added
-      description: Gregorian month geometry with Monday-first and Sunday-first comparisons
-    - kind: added
-      description: Winter rollover fixture API and ISO week boundary diagnostics
-    - kind: added
-      description: Prometheus request and fixture metrics
-    - kind: added
-      description: Hardened Kubernetes defaults and configurable Helm deployment
+      description: Add real application screenshots and explicit amd64/arm64 image metadata for Artifact Hub.
   artifacthub.io/links: |
     - name: Source
       url: https://github.com/mateopedersen/betacalendars-calendar-boundary-lab
