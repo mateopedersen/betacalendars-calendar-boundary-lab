@@ -4,6 +4,69 @@ entries:
   - annotations:
       artifacthub.io/category: monitoring-logging
       artifacthub.io/changes: |
+        - kind: changed
+          description: Document the published GHCR image as the image.repository default.
+        - kind: added
+          description: Add real application screenshots and explicit amd64/arm64 image metadata for Artifact Hub.
+      artifacthub.io/images: |
+        - name: Calendar Boundary Lab
+          image: ghcr.io/mateopedersen/betacalendars-calendar-boundary-lab:1.0.0
+          platforms:
+            - linux/amd64
+            - linux/arm64
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Source
+          url: https://github.com/mateopedersen/betacalendars-calendar-boundary-lab
+        - name: Documentation
+          url: https://github.com/mateopedersen/betacalendars-calendar-boundary-lab/tree/main/docs
+        - name: support
+          url: https://github.com/mateopedersen/betacalendars-calendar-boundary-lab/issues
+        - name: Beta Calendars
+          url: https://www.betacalendars.com/
+        - name: November Calendar - Winter Fixture
+          url: https://www.betacalendars.com/november-calendar.html
+        - name: December Calendar - Year-End Fixture
+          url: https://www.betacalendars.com/december-calendar.html
+        - name: January Calendar - Year-Start Fixture
+          url: https://www.betacalendars.com/january-calendar.html
+        - name: February Calendar - Short-Month Fixture
+          url: https://www.betacalendars.com/february-calendar.html
+      artifacthub.io/screenshots: |
+        - title: Month Geometry Matrix
+          url: https://raw.githubusercontent.com/mateopedersen/betacalendars-calendar-boundary-lab/main/docs/screenshots/month-geometry-matrix.png
+        - title: Winter Rollover Suite
+          url: https://raw.githubusercontent.com/mateopedersen/betacalendars-calendar-boundary-lab/main/docs/screenshots/winter-rollover-suite.png
+        - title: API and invariant results
+          url: https://raw.githubusercontent.com/mateopedersen/betacalendars-calendar-boundary-lab/main/docs/screenshots/api-invariant-results.png
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-10-05T11:13:52.014172313Z"
+    description: Helm chart for a deterministic Gregorian calendar boundary and month-grid
+      conformance service.
+    digest: 9c46e21f8e4776648ad244c38e03ce3b0c4fa3bbe687ce486cd923d52cd07385
+    home: https://www.betacalendars.com/
+    keywords:
+    - calendar
+    - gregorian
+    - date
+    - kubernetes
+    - helm
+    - testing
+    - conformance
+    - week
+    - iso-week
+    - observability
+    name: betacalendars-calendar-boundary-lab
+    sources:
+    - https://github.com/mateopedersen/betacalendars-calendar-boundary-lab
+    type: application
+    urls:
+    - https://github.com/mateopedersen/betacalendars-calendar-boundary-lab/releases/download/betacalendars-calendar-boundary-lab-0.1.2/betacalendars-calendar-boundary-lab-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      artifacthub.io/category: monitoring-logging
+      artifacthub.io/changes: |
         - kind: added
           description: Gregorian month geometry with Monday-first and Sunday-first comparisons
         - kind: added
@@ -78,4 +141,4 @@ entries:
     urls:
     - https://github.com/mateopedersen/betacalendars-calendar-boundary-lab/releases/download/betacalendars-calendar-boundary-lab-0.1.0/betacalendars-calendar-boundary-lab-0.1.0.tgz
     version: 0.1.0
-generated: "2026-10-05T10:54:14.740960852Z"
+generated: "2026-10-05T11:13:52.014185058Z"
