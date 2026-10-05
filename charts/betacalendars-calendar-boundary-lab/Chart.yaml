@@ -2,7 +2,7 @@ apiVersion: v2
 name: betacalendars-calendar-boundary-lab
 description: Helm chart for a deterministic Gregorian calendar boundary and month-grid conformance service.
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "1.0.0"
 home: https://www.betacalendars.com/
 sources:
@@ -21,6 +21,19 @@ keywords:
 annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/category: monitoring-logging
+  artifacthub.io/images: |
+    - name: Calendar Boundary Lab
+      image: ghcr.io/mateopedersen/betacalendars-calendar-boundary-lab:1.0.0
+      platforms:
+        - linux/amd64
+        - linux/arm64
+  artifacthub.io/screenshots: |
+    - title: Month Geometry Matrix
+      url: https://raw.githubusercontent.com/mateopedersen/betacalendars-calendar-boundary-lab/main/docs/screenshots/month-geometry-matrix.png
+    - title: Winter Rollover Suite
+      url: https://raw.githubusercontent.com/mateopedersen/betacalendars-calendar-boundary-lab/main/docs/screenshots/winter-rollover-suite.png
+    - title: API and invariant results
+      url: https://raw.githubusercontent.com/mateopedersen/betacalendars-calendar-boundary-lab/main/docs/screenshots/api-invariant-results.png
   artifacthub.io/changes: |
     - kind: added
       description: Gregorian month geometry with Monday-first and Sunday-first comparisons
