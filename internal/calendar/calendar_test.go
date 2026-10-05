@@ -1,0 +1,9 @@
+package calendar
+
+import "testing"
+
+func TestLeapAndFebruary(t *testing.T){cases:=[]struct{y,days int;leap bool}{{1900,28,false},{2000,29,true},{2027,28,false},{2028,29,true},{2100,28,false},{2400,29,true}};for _,c:=range cases{if got:=IsLeap(c.y);got!=c.leap{t.Errorf("IsLeap(%d)=%v",c.y,got)};if got:=DaysInMonth(c.y,2);got!=c.days{t.Errorf("February %d=%d",c.y,got)}}}
+func Test2027Geometry(t *testing.T){want:=[][3]int{{5,6},{4,5},{5,5},{5,5},{6,6},{5,5},{5,5},{6,5},{5,5},{5,6},{5,5},{5,5}};days:=[]string{"Friday","Monday","Monday","Thursday","Saturday","Tuesday","Thursday","Sunday","Wednesday","Friday","Monday","Wednesday"};for m:=1;m<=12;m++{a,e:=Geometry(2027,m,"monday");if e!=nil{t.Fatal(e)};b,_:=Geometry(2027,m,"sunday");if a.FirstWeekday!=days[m-1]||a.NaturalRows!=want[m-1][0]||b.NaturalRows!=want[m-1][1]{t.Errorf("2027/%d: weekday=%s rows=%d/%d",m,a.FirstWeekday,a.NaturalRows,b.NaturalRows)}}}
+func TestISOYearBoundary(t *testing.T){b,e:=Boundaries(2021);if e!=nil{t.Fatal(e)};if b["isoWeekYearDiffersAtStart"]!=true{t.Fatal("2021-01-01 should be in ISO week-year 2020")}}
+func TestEveryDateAppearsOnceInBothLayouts(t *testing.T){for m:=1;m<=12;m++{for _,start:=range []string{"monday","sunday"}{got,err:=Geometry(2027,m,start);if err!=nil{t.Fatal(err)};if len(got.Weeks)!=got.NaturalRows||got.NaturalRows<4||got.NaturalRows>6{t.Fatalf("invalid row count for 2027/%d %s",m,start)};n:=0;for _,row:=range got.Weeks{for _,date:=range row.Dates{if date!=""{n++}}};if n!=got.DaysInMonth||!got.Invariants.SequentialDates||!got.Invariants.UniqueDates{t.Fatalf("date invariants failed for 2027/%d %s",m,start)}}}}
+func TestYearMatrixHasTwelveMonths(t *testing.T){v,err:=YearMatrix(2027);if err!=nil{t.Fatal(err)};if len(v)!=12||v[0].MonthName!="January"||v[11].MonthName!="December"{t.Fatalf("unexpected year matrix: %#v",v)}}
