@@ -6,6 +6,18 @@ on:
 permissions:
   contents: read
 jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: docs/requirements.txt
+      - run: python -m pip install -r docs/requirements.txt
+      - run: mkdocs build --strict
+      - run: python scripts/check_external_docs_links.py
   go:
     runs-on: ubuntu-latest
     steps:

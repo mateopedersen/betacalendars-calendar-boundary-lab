@@ -1,6 +1,6 @@
 # BetaCalendars Calendar Boundary Lab
 
-A deterministic Gregorian month-grid and civil-date conformance service for Kubernetes. It checks month geometry, Monday-first and Sunday-first layouts, Gregorian leap years, ISO week-year boundaries, and the November-to-February winter rollover sequence.
+A deterministic Gregorian month-grid and civil-date conformance service for Kubernetes. It checks month geometry, Monday-first and Sunday-first layouts, Gregorian leap years, ISO week-year boundaries, proleptic Gregorian/Julian conversion, and the November-to-February winter rollover sequence.
 
 ## Run locally
 
@@ -20,6 +20,7 @@ curl http://localhost:8080/v1/fixtures/winter-rollover/2026
 | `GET /v1/month/{year}/{month}?weekStart=monday\|sunday` | Month cells, row count, and invariants |
 | `GET /v1/year/{year}/matrix` | Twelve-month geometry and ISO week-year spans |
 | `GET /v1/boundaries/{year}` | Leap year, weekday, and ISO boundary diagnostics |
+| `GET /v1/convert/{gregorian\|julian}/{year}/{month}/{day}` | Proleptic Gregorian/Julian civil-date conversion and Julian Day Number |
 | `GET /v1/fixtures/winter-rollover/{year}` | November through February across the next New Year |
 
 ## Calendar model

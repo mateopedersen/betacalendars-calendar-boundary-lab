@@ -1,0 +1,54 @@
+site_name: BetaCalendars Temporal Engineering Handbook
+site_description: Tested calendar arithmetic, date boundaries, time-zone pitfalls, and rendering notes from Calendar Boundary Lab.
+site_url: https://betacalendars-calendar-boundary-lab.readthedocs.io/en/stable/
+repo_name: Calendar Boundary Lab
+repo_url: https://github.com/mateopedersen/betacalendars-calendar-boundary-lab
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  font: false
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - Handbook: index.md
+  - Getting started:
+      - Quickstart: QUICKSTART.md
+      - Architecture: ARCHITECTURE.md
+      - API: API.md
+  - Calendar engineering:
+      - Data model: DATA_MODEL.md
+      - Gregorian arithmetic: GREGORIAN.md
+      - Julian conversion: JULIAN_CONVERSION.md
+      - ISO week years: ISO_WEEKS.md
+      - Month grid geometry: GRID_GEOMETRY.md
+      - Time zones and DST: TIMEZONES.md
+      - Printing: PRINTING.md
+      - Blank and annual calendars: PRINTABLES.md
+  - Engineering practice:
+      - Test fixtures: TESTING.md
+      - Calendar invariants: CALENDAR_INVARIANTS.md
+      - Winter fixtures: WINTER_BOUNDARY_FIXTURES.md
+      - Accessibility: ACCESSIBILITY.md
+      - Reproducible operations: OPERATIONS.md
+      - Troubleshooting: TROUBLESHOOTING.md
+  - References:
+      - Beta Calendars map: BETACALENDARS.md
+      - Sources: REFERENCES.md
