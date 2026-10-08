@@ -2,6 +2,10 @@
 
 A deterministic Gregorian month-grid and civil-date conformance service for Kubernetes. It checks month geometry, Monday-first and Sunday-first layouts, Gregorian leap years, ISO week-year boundaries, proleptic Gregorian/Julian conversion, and the November-to-February winter rollover sequence.
 
+## Documentation
+
+Read the [BetaCalendars Temporal Engineering Handbook](https://betacalendars-calendar-boundary-lab.readthedocs.io/en/latest/) for the API guide, calendar model, boundary cases, test fixtures, accessibility notes, and operating instructions.
+
 ## Run locally
 
 ```sh
